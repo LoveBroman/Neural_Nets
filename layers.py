@@ -1,11 +1,18 @@
 import numpy as np
 from activation_funcs import *
+from abc import ABC, abstractmethod
 
-class Dense:
+class Layer(ABC):
+    @abstractmethod
+    def forward(self):
+        pass
+
+class Dense(Layer):
     def __init__(self, input, outsize, act="linear"):
         self.insize = len(input)
         self.input = input
         self.W = np.random.rand(self.insize, outsize)
+        self.bias = np.random.rand()
         self.act = act
 
     def forward(self):
