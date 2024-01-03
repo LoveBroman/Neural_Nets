@@ -1,29 +1,30 @@
 import numpy as np
-from activation_funcs import *
+from utils import *
 from abc import ABC, abstractmethod
 
 class Layer(ABC):
     @abstractmethod
-    def forward(self):
+    def forward(self, input):
         pass
 
 class Dense(Layer):
-    def __init__(self, input, outsize, act="linear"):
-        self.insize = len(input)
-        self.input = input
+    def __init__(self, insize, outsize, act="linear"):
+        self.insize = insize
+        #self.input = input
         self.W = np.random.rand(self.insize, outsize)
         self.bias = np.random.rand()
         self.act = act
 
-    def forward(self):
-        a = np.matmul(self.W, self.input)
+    def forward(self, input):
+        a = np.matmul(self.W, input)
         if self.act == "linear":
-            return a
+            self.out = a
         elif self.act == "sigmoid":
-            return sigmoid(a)
+            self.out = sigmoid(a)
         elif self.act == "tanh":
-            return np.tanh(a)
+            self.out =  np.tanh(a)
         elif self.act == "relu":
-            return relu(a)
+            self.out = relu(a)
+
 
 
