@@ -3,8 +3,8 @@ from layers import *
 from utils import *
 
 class NeuralNet:
-    def __init__(self, a, epochs, batch_size=None, layers=None):
-        self.a = a
+    def __init__(self, alpha, epochs, batch_size=None, layers=None):
+        self.alpha = alpha
         self.epochs = epochs
         self.batch_size = batch_size
         if layers is not None:
@@ -52,7 +52,7 @@ class NeuralNet:
         for i in range(len(self.layers))[1:]:
             if i == 2:
                 pass
-            self.layers[i].W += w_deltas[i - 1]
+            self.layers[i].W += self.alpha * w_deltas[i - 1]
 
 
     def get_batch(self, X, y):
