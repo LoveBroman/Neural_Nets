@@ -22,8 +22,16 @@ def derivate(fs):
         return lambda x: x * (1 - x)
     elif fs == "linear":
         return lambda x: x
+    elif fs == "tanh":
+        return lambda x: 1 - x ** 2
     else:
         return lambda x: (fs(x + 1e-7) - fs(x)) / 1e-7
+
+def reshuffle(X, y):
+    data = np.vstack((X, y)).T
+    np.random.shuffle(data)
+    X, y = data.T[0], data.T[1]
+    return X, y
 
 
 #Generates randomnumbers a different one each time.
